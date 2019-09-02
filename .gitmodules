@@ -1,0 +1,6 @@
+[submodule "proxy_dev_server/nodejs-proxy"]
+	path = proxy_dev_server/nodejs-proxy
+	url = https://github.com/xiliangMa/nodejs-proxy.git
+[submodule "uranus-stage-ui/uranus-stage"]
+	path = uranus-stage-ui/uranus-stage
+	url = https://github.com/xiliangMa/uranus-stage.git
