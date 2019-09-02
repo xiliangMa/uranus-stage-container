@@ -1,0 +1,36 @@
+FROM node:8.12 as node812
+
+RUN mkdir /nodejs-proxy
+
+COPY proxy_dev_server/nodejs-proxy /nodejs-proxy
+
+
+WORKDIR /nodejs-proxy
+
+
+
+### ----- set env depends and config
+RUN cp package.dist.json package.json
+
+RUN npm install --registry=https://registry.npm.taobao.org
+
+# VOLUME ["/nodejs-proxy"]
+
+EXPOSE 8088
+### ---- run site on port 8088 , you need start nginx proxy port 443 for entry and dist static
+
+COPY proxy_dev_server/proxy-rancher.entrypoint.sh /opt/proxy-rancher.entrypoint.sh
+RUN chmod +x /opt/proxy-rancher.entrypoint.sh
+#COPY Archive/apt-src /etc/apt/sources.list
+
+
+ENTRYPOINT ["/opt/proxy-rancher.entrypoint.sh"]
+
+
+
+
+
+
+
+
+

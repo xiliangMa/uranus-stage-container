@@ -1,0 +1,27 @@
+FROM photon:2.0
+
+RUN tdnf install -y nginx  \
+    && ln -sf /dev/stdout /var/log/nginx/access.log \
+    && ln -sf /dev/stderr /var/log/nginx/error.log \
+    && tdnf clean all
+
+COPY nginx-ui/photon-nginx /etc/nginx/nginx.conf
+RUN mkdir -p /etc/nginx/conf.d
+COPY nginx-ui/proxy-java-api-server /etc/nginx/conf.d/java-api.proxy.conf
+COPY nginx-ui/proxy-ui-rancher-server /etc/nginx/conf.d/ui-rancher.proxy.conf
+
+
+RUN mkdir -p /etc/pki/nginx/private/
+COPY ssl/server.crt /etc/pki/nginx/server.crt
+COPY ssl/server.key /etc/pki/nginx/private/server.key
+
+COPY uranus-stage-ui/uranus-stage/dist /opt/dist
+COPY uranus-stage-ui/nginx-ui-dist.entrypoint.sh /opt/nginx-ui-dist.entrypoint.sh
+RUN chmod +x /opt/nginx-ui-dist.entrypoint.sh
+COPY uranus-stage-ui/uranus-stage/static/serverConfig-container.js /opt/dist/static/serverConfig.js
+
+EXPOSE 443
+VOLUME /var/cache/nginx /var/log/nginx /run
+
+#CMD ["nginx", "-g", "daemon off;"]
+ENTRYPOINT ["/opt/nginx-ui-dist.entrypoint.sh"]
