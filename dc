@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+export HOST_IP=$(curl ip.sb -s)
+docker-compose $1 $2 $3
+
+
+
+

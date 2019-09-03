@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="VcsDirectoryMappings">
-    <mapping directory="$PROJECT_DIR$/nodejs-proxy" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/proxy_dev_server/nodejs-proxy" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/uranus-stage" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/uranus-stage-ui/uranus-stage" vcs="Git" />
-  </component>
-</project>

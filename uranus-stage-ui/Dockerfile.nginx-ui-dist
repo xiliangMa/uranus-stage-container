@@ -23,5 +23,8 @@ COPY uranus-stage-ui/uranus-stage/static/serverConfig-container.js /opt/dist/sta
 EXPOSE 443
 VOLUME /var/cache/nginx /var/log/nginx /run
 
+ARG HOST_IP
+ENV HOST_IP_ENT=${HOST_IP}
+
 #CMD ["nginx", "-g", "daemon off;"]
-ENTRYPOINT ["/opt/nginx-ui-dist.entrypoint.sh"]
+ENTRYPOINT "/opt/nginx-ui-dist.entrypoint.sh" "${HOST_IP_ENT}"
