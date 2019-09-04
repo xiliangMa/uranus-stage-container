@@ -1,8 +1,8 @@
 FROM node:8.12 as node812
 
-RUN mkdir /nodejs-proxy
-
+RUN mkdir /nodejs-proxy && mkdir /nodejs-proxy/dist
 COPY proxy_dev_server/nodejs-proxy /nodejs-proxy
+COPY uranus-stage-ui/uranus-stage/dist/index.html /nodejs-proxy/dist
 
 
 WORKDIR /nodejs-proxy
