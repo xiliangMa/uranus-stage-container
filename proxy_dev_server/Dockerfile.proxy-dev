@@ -1,0 +1,30 @@
+FROM node:8.12 as node812
+
+RUN mkdir /nodejs-proxy
+
+COPY nodejs-proxy /nodejs-proxy
+
+RUN mv /nodejs-proxy /uranus_stage
+
+WORKDIR /uranus_stage
+
+
+### ----- set env depends and config
+RUN cp package.dev.json package.json
+
+RUN npm install chromedriver --chromedriver_cdnurl=http://cdn.npm.taobao.org/dist/chromedriver \
+ && npm install --registry=https://registry.npm.taobao.org
+
+# VOLUME ["/uranus_stage"]
+
+### ---- run site on port 8088
+
+CMD ["npm", "run", "dev2"]
+#CMD ["bash"]
+
+
+
+
+
+
+

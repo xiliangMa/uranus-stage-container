@@ -17,11 +17,8 @@ RUN npm install chromedriver --chromedriver_cdnurl=http://cdn.npm.taobao.org/dis
 
 # VOLUME ["/uranus_stage"]
 
-EXPOSE 8088
 
-### ---- run site on port 8088
-
-CMD ["npm", "run", "dev2"]
+CMD ["npm", "run", "dev"]
 #CMD ["bash"]
 
 
