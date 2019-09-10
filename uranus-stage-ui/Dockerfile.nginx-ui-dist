@@ -12,8 +12,8 @@ COPY nginx-ui/proxy-ui-rancher-server /etc/nginx/conf.d/ui-rancher.proxy.conf
 
 
 RUN mkdir -p /etc/pki/nginx/private/
-COPY ssl/server.crt /etc/pki/nginx/server.crt
-COPY ssl/server.key /etc/pki/nginx/private/server.key
+COPY ssl/1_testnet.uranus.io_bundle.crt /etc/pki/nginx/server.crt
+COPY ssl/2_testnet.uranus.io.key /etc/pki/nginx/private/server.key
 
 COPY uranus-stage-ui/uranus-stage/dist /opt/dist
 COPY uranus-stage-ui/nginx-ui-dist.entrypoint.sh /opt/nginx-ui-dist.entrypoint.sh

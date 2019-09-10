@@ -15,7 +15,7 @@ services:
     links:
       - proxy:rancher-proxy
 
-  proxy:
+  proxy:ur
     build:
       context: ./
       dockerfile: ./proxy_dev_server/Dockerfile.proxy-rancher

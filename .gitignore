@@ -17,6 +17,7 @@ selenium-debug.log
 *.sln
 *.swp
 *~
+ssl/
 .gitignore~
 
 
