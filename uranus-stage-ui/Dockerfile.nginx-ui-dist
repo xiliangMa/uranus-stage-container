@@ -26,5 +26,8 @@ VOLUME /var/cache/nginx /var/log/nginx /run
 ARG HOST_IP
 ENV HOST_IP_ENT=${HOST_IP}
 
+ARG JAVASRV_IP
+ENV JAVASRV_IP_ENT=${JAVASRV_IP}
+
 #CMD ["nginx", "-g", "daemon off;"]
-ENTRYPOINT "/opt/nginx-ui-dist.entrypoint.sh" "${HOST_IP_ENT}"
+ENTRYPOINT "/opt/nginx-ui-dist.entrypoint.sh" "${HOST_IP_ENT}" "${JAVASRV_IP_ENT}"

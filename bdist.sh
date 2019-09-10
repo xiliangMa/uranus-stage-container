@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
-cd uranus-stage-ui/uranus-stage
+cd /opt/uranus-stage
+git pull
+npm run build:dll
 npm run build
-cd ../..
+cp -rf dist /opt/uranus-stage-container/uranus-stage-ui/uranus-stage
+cd /opt/uranus-stage-container
