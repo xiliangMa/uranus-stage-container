@@ -1,3 +1,14 @@
+FROM node:8.12 as nodecompile
+
+RUN  mkdir -p /build_dir
+COPY uranus-stage-ui/uranus-stage /build_dir/uranus-stage
+COPY uranus-stage-ui/build-dist-container.sh /build_dir/uranus-stage/
+
+RUN chmod u+x /build_dir/uranus-stage/build-dist-container.sh
+RUN /build_dir/uranus-stage/build-dist-container.sh
+VOLUME ['/build_dir']
+
+
 FROM photon:2.0
 
 RUN tdnf install -y nginx  \
@@ -6,18 +17,19 @@ RUN tdnf install -y nginx  \
     && tdnf clean all
 
 COPY nginx-ui/photon-nginx /etc/nginx/nginx.conf
-RUN mkdir -p /etc/nginx/conf.d
+RUN  mkdir -p /etc/nginx/conf.d
 COPY nginx-ui/proxy-java-api-server /etc/nginx/conf.d/java-api.proxy.conf
 COPY nginx-ui/proxy-ui-rancher-server /etc/nginx/conf.d/ui-rancher.proxy.conf
 
-
-RUN mkdir -p /etc/pki/nginx/private/
+RUN  mkdir -p /etc/pki/nginx/private/
 COPY ssl/1_testnet.uranus.io_bundle.crt /etc/pki/nginx/server.crt
 COPY ssl/2_testnet.uranus.io.key /etc/pki/nginx/private/server.key
+# COPY ssl/server.crt /etc/pki/nginx/server.crt
+# COPY ssl/server.key /etc/pki/nginx/private/server.key
 
-COPY uranus-stage-ui/uranus-stage/dist /opt/dist
+COPY --from=nodecompile /build_dir/uranus-stage/dist /opt/dist
 COPY uranus-stage-ui/nginx-ui-dist.entrypoint.sh /opt/nginx-ui-dist.entrypoint.sh
-RUN chmod +x /opt/nginx-ui-dist.entrypoint.sh
+RUN  chmod +x /opt/nginx-ui-dist.entrypoint.sh
 COPY uranus-stage-ui/uranus-stage/static/serverConfig-container.js /opt/dist/static/serverConfig.js
 
 EXPOSE 443
@@ -29,5 +41,4 @@ ENV HOST_IP_ENT=${HOST_IP}
 ARG JAVASRV_IP
 ENV JAVASRV_IP_ENT=${JAVASRV_IP}
 
-#CMD ["nginx", "-g", "daemon off;"]
 ENTRYPOINT "/opt/nginx-ui-dist.entrypoint.sh" "${HOST_IP_ENT}" "${JAVASRV_IP_ENT}"

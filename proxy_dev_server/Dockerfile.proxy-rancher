@@ -2,7 +2,8 @@ FROM node:8.12 as node812
 
 RUN mkdir /nodejs-proxy && mkdir /nodejs-proxy/dist
 COPY proxy_dev_server/nodejs-proxy /nodejs-proxy
-
+COPY ssl/1_testnet.uranus.io_bundle.crt  /nodejs-proxy/ssl
+COPY ssl/2_testnet.uranus.io.key  /nodejs-proxy/ssl
 
 WORKDIR /nodejs-proxy
 
