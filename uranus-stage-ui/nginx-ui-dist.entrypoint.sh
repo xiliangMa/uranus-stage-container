@@ -12,16 +12,13 @@ cat /etc/nginx/conf.d/ui-rancher.proxy.conf | grep server_name
 cat /etc/nginx/conf.d/java-api.proxy.conf | grep proxy_pass
 
 if [ $BUILD_DIST_PARA = "Y" ];then
-     if [ ! -d "/build_dir/uranus-stage" ];then
-	mkdir /build_dir/uranus-stage
-     fi
+    if [ ! -d "/build_dir/uranus-stage" ];then
+	    mkdir /build_dir/uranus-stage
+    fi
 	cp -r /opt/dist /build_dir/uranus-stage/
 else
-     cp -r /build_dir/uranus-stage/dist/* /opt/dist	
+    cp -r /build_dir/uranus-stage/dist/* /opt/dist
 fi
-
-# ln -sf /dev/stdout /var/log/nginx/access.log
-# ln -sf /dev/stderr /var/log/nginx/error.log
 
 nginx -g "daemon off;"
 

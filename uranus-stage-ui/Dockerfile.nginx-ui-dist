@@ -20,6 +20,7 @@ COPY nginx-ui.conf/photon-nginx /etc/nginx/nginx.conf
 RUN  mkdir -p /etc/nginx/conf.d
 COPY nginx-ui.conf/proxy-java-api-server /etc/nginx/conf.d/java-api.proxy.conf
 COPY nginx-ui.conf/proxy-ui-rancher-server /etc/nginx/conf.d/ui-rancher.proxy.conf
+COPY nginx-ui.conf/proxy-rancher-img-server /etc/nginx/conf.d/img-server.proxy.conf
 
 RUN  mkdir -p /etc/pki/nginx/private/
 COPY ssl/1_testnet.uranus.io_bundle.crt /etc/pki/nginx/server.crt
@@ -44,6 +45,6 @@ ENV BUILD_DIST_PARA=${BUILD_DIST}
 
 COPY uranus-stage-ui/nginx-ui-dist.entrypoint.sh /opt/nginx-ui-dist.entrypoint.sh
 RUN  chmod +x /opt/nginx-ui-dist.entrypoint.sh
-ENTRYPOINT "/opt/nginx-ui-dist.entrypoint.sh" 
+ENTRYPOINT "/opt/nginx-ui-dist.entrypoint.sh"
 
 
