@@ -1,25 +1,25 @@
 FROM node:8.12 as nodecompile
 
-RUN  mkdir -p /build_dir
 COPY uranus-stage-ui/uranus-stage /build_dir/uranus-stage
 COPY uranus-stage-ui/build-dist-container.sh /build_dir/uranus-stage/
 
 RUN chmod u+x /build_dir/uranus-stage/build-dist-container.sh
+ARG BUILD_DIST
+ENV BUILD_DIST_PARA=${BUILD_DIST}
 RUN /build_dir/uranus-stage/build-dist-container.sh
-VOLUME ['/build_dir']
 
 
 FROM photon:2.0
 
 RUN tdnf install -y nginx  \
-    && ln -sf /dev/stdout /var/log/nginx/access.log \
-    && ln -sf /dev/stderr /var/log/nginx/error.log \
+    #&& ln -sf /dev/stdout /var/log/nginx/access.log \
+    #&& ln -sf /dev/stderr /var/log/nginx/error.log \
     && tdnf clean all
 
-COPY nginx-ui/photon-nginx /etc/nginx/nginx.conf
+COPY nginx-ui.conf/photon-nginx /etc/nginx/nginx.conf
 RUN  mkdir -p /etc/nginx/conf.d
-COPY nginx-ui/proxy-java-api-server /etc/nginx/conf.d/java-api.proxy.conf
-COPY nginx-ui/proxy-ui-rancher-server /etc/nginx/conf.d/ui-rancher.proxy.conf
+COPY nginx-ui.conf/proxy-java-api-server /etc/nginx/conf.d/java-api.proxy.conf
+COPY nginx-ui.conf/proxy-ui-rancher-server /etc/nginx/conf.d/ui-rancher.proxy.conf
 
 RUN  mkdir -p /etc/pki/nginx/private/
 COPY ssl/1_testnet.uranus.io_bundle.crt /etc/pki/nginx/server.crt
@@ -28,12 +28,9 @@ COPY ssl/2_testnet.uranus.io.key /etc/pki/nginx/private/server.key
 # COPY ssl/server.key /etc/pki/nginx/private/server.key
 
 COPY --from=nodecompile /build_dir/uranus-stage/dist /opt/dist
-COPY uranus-stage-ui/nginx-ui-dist.entrypoint.sh /opt/nginx-ui-dist.entrypoint.sh
-RUN  chmod +x /opt/nginx-ui-dist.entrypoint.sh
 COPY uranus-stage-ui/uranus-stage/static/serverConfig-container.js /opt/dist/static/serverConfig.js
 
-EXPOSE 443
-VOLUME /var/cache/nginx /var/log/nginx /run
+VOLUME /var/cache/nginx /run
 
 ARG HOST_IP
 ENV HOST_IP_ENT=${HOST_IP}
@@ -41,4 +38,12 @@ ENV HOST_IP_ENT=${HOST_IP}
 ARG JAVASRV_IP
 ENV JAVASRV_IP_ENT=${JAVASRV_IP}
 
-ENTRYPOINT "/opt/nginx-ui-dist.entrypoint.sh" "${HOST_IP_ENT}" "${JAVASRV_IP_ENT}"
+ARG BUILD_DIST
+ENV BUILD_DIST_PARA=${BUILD_DIST}
+
+
+COPY uranus-stage-ui/nginx-ui-dist.entrypoint.sh /opt/nginx-ui-dist.entrypoint.sh
+RUN  chmod +x /opt/nginx-ui-dist.entrypoint.sh
+ENTRYPOINT "/opt/nginx-ui-dist.entrypoint.sh" 
+
+

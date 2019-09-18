@@ -5,6 +5,7 @@ services:
       context: ./
       dockerfile: ./uranus-stage-ui/Dockerfile.nginx-ui-dist
       args:
+        BUILD_DIST: ${BUILD_DIST}
         HOST_IP: ${HOST_IP}
         JAVASRV_IP: ${JAVASRV_IP}
     ports:
@@ -15,6 +16,10 @@ services:
       - proxy
     links:
       - proxy:rancher-proxy
+    volumes:
+      - build_dir:/build_dir/
+      - /var/log/nginx:/var/logs
+
 
   proxy:
     build:
@@ -22,3 +27,8 @@ services:
       dockerfile: ./proxy_dev_server/Dockerfile.proxy-rancher
     ports:
         - "8088:8088"
+
+volumes:
+  build_dir:
+    external:
+        name: build-dir-volume
