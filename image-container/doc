@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+export TARGET_IP=15.164.158.198
+export AUTH=token-nkv6b:hmxlmp6c98hklcp5qmmx9js8f6d48kcjptl4k4gc2wwrnddmsjtfwc
+docker $*
+
+
+
+

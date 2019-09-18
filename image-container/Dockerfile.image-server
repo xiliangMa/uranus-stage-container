@@ -1,0 +1,38 @@
+FROM node:8.12 as node812
+
+RUN mkdir /image-server
+COPY /rancher-img-server /image-server
+
+COPY rancher-img-server.sh rancher-img-server.sh
+RUN chmod +x rancher-img-server.sh
+
+ARG TARGET_IP
+ARG AUTH
+
+ENV TARGET_IP=${TARGET_IP}
+ENV AUTH=${AUTH}
+
+RUN env
+
+RUN sed -i "s/----->TARGET_IP<-----/$TARGET_IP/" /image-server/server.js
+RUN sed -i "s/----->AUTH<-----/$AUTH/" /image-server/server.js
+
+RUN cat /image-server/server.js
+
+
+### COPY ssl/1_testnet.uranus.io_bundle.crt  /nodejs-proxy/ssl
+### COPY ssl/2_testnet.uranus.io.key  /nodejs-proxy/ssl
+
+WORKDIR /image-server
+
+### ----- set env depends and config
+### RUN cp package.dist.json package.json
+
+RUN npm install --registry=https://registry.npm.taobao.org
+
+
+## ENTRYPOINT npm start server.js
+## ENTRYPOINT /rancher-img-server.sh
+ENTRYPOINT bash
+
+
