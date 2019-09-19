@@ -1,5 +1,5 @@
     server {
-        listen       3300 ssl;  # http2 default_server;
+        listen       ----->IMGSRV_PORT<----- ssl;  # http2 default_server;
 #        listen       [::]:443 ssl http2 default_server;
 #        server_name  ----->HOST_IP<-----;
 

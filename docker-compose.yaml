@@ -8,6 +8,7 @@ services:
         BUILD_DIST: ${BUILD_DIST}
         HOST_IP: ${HOST_IP}
         JAVASRV_IP: ${JAVASRV_IP}
+        IMGSRV_PORT: 3330
     ports:
         - "80:80"
         - "443:443"
@@ -27,6 +28,18 @@ services:
       dockerfile: ./proxy_dev_server/Dockerfile.proxy-rancher
     ports:
         - "8088:8088"
+
+  img:
+    build:
+      context: ./image-container
+      dockerfile: ./Dockerfile.image-server
+      args:
+        TARGET_IP: 15.164.158.198
+        AUTH: token-nkv6b:hmxlmp6c98hklcp5qmmx9js8f6d48kcjptl4k4gc2wwrnddmsjtfwc
+    ports:
+        - "3300:3300"
+
+
 
 volumes:
   build_dir:
