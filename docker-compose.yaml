@@ -19,8 +19,7 @@ services:
       - proxy:rancher-proxy
     volumes:
       - build_dir:/build_dir/
-      - /var/log/nginx:/var/logs
-
+      - /cloudata/log/nginx:/var/logs
 
   proxy:
     build:
@@ -39,6 +38,16 @@ services:
     ports:
         - "3300:3300"
 
+
+  ui-dev:
+    build:
+      context: ./uranus-stage-ui
+      dockerfile: Dockerfile.ui-dev
+    volumes:
+      - ./uranus-stage-ui/uranus-stage:/opt/uranus-stage
+      - ./uranus-stage-ui/scripts:/opt/scripts
+    ports:
+      - 8080:8080
 
 
 volumes:

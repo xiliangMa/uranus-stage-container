@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+cd /opt/uranus-stage
+npm run build:dll
