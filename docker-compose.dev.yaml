@@ -1,0 +1,18 @@
+version: '3'
+services:
+
+  ui-dev:
+    build:
+      context: ./uranus-stage-ui
+      dockerfile: Dockerfile.ui-dev
+    volumes:
+      - ./uranus-stage-ui/uranus-stage:/opt/uranus-stage
+      - ./uranus-stage-ui/scripts:/opt/scripts
+    ports:
+      - "8080:8080"
+
+
+#volumes:
+    #build_dir:
+        #external:
+        # name: build-dir-volume

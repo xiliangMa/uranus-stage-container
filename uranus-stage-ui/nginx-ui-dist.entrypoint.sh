@@ -5,6 +5,7 @@ sed -i "s/----->HOST_IP<-----/${HOST_IP_ENT}/" /opt/dist/static/serverConfig.js
 sed -i "s/----->JAVASRV_IP<-----/${JAVASRV_IP_ENT}/" /opt/dist/static/serverConfig.js
 sed -i "s/----->IMGSRV_PORT<-----/${IMGSRV_PORT}/" /opt/dist/static/serverConfig.js
 sed -i "s/----->HOST_IP<-----/${HOST_IP_ENT}/" /etc/nginx/conf.d/ui-rancher.proxy.conf
+sed -i "s/----->HOST_IP<-----/${HOST_IP_ENT}/" /etc/nginx/conf.d/img-server.proxy.conf
 sed -i "s/----->JAVASRV_IP<-----/${JAVASRV_IP}/" /etc/nginx/conf.d/img-server.proxy.conf
 sed -i "s/----->IMGSRV_PORT<-----/${IMGSRV_PORT}/" /etc/nginx/conf.d/img-server.proxy.conf
 sed -i "s/----->JAVASRV_IP<-----/${JAVASRV_IP_ENT}/" /etc/nginx/conf.d/java-api.proxy.conf
@@ -20,7 +21,7 @@ if [ $BUILD_DIST_PARA = "Y" ];then
     fi
 	cp -r /opt/dist /build_dir/uranus-stage/
 else
-    cp -r /build_dir/uranus-stage/dist/* /opt/dist
+    # cp -r /build_dir/uranus-stage/dist/* /opt/dist
 fi
 
 nginx -g "daemon off;"
