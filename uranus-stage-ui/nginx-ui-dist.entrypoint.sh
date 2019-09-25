@@ -2,7 +2,6 @@
 
 
 sed -i "s/----->HOST_IP<-----/${HOST_IP_ENT}/" /opt/dist/static/serverConfig.js
-sed -i "s/----->JAVASRV_IP<-----/${JAVASRV_IP_ENT}/" /opt/dist/static/serverConfig.js
 sed -i "s/----->IMGSRV_PORT<-----/${IMGSRV_PORT_ENT}/" /opt/dist/static/serverConfig.js
 sed -i "s/----->HOST_IP<-----/${HOST_IP_ENT}/" /etc/nginx/conf.d/ui-rancher.proxy.conf
 sed -i "s/----->HOST_IP<-----/${HOST_IP_ENT}/" /etc/nginx/conf.d/img-server.proxy.conf
