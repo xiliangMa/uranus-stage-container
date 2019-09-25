@@ -42,6 +42,8 @@ ENV JAVASRV_IP_ENT=${JAVASRV_IP}
 ARG BUILD_DIST
 ENV BUILD_DIST_PARA=${BUILD_DIST}
 
+ARG IMGSRV_PORT
+ENV IMGSRV_PORT_ENT=${IMGSRV_PORT}
 
 COPY uranus-stage-ui/nginx-ui-dist.entrypoint.sh /opt/nginx-ui-dist.entrypoint.sh
 RUN  chmod +x /opt/nginx-ui-dist.entrypoint.sh

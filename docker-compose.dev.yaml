@@ -8,6 +8,7 @@ services:
     volumes:
       - ./uranus-stage-ui/uranus-stage:/opt/uranus-stage
       - ./uranus-stage-ui/scripts:/opt/scripts
+    image: "uranus-ui-dev-container:v1"    
     ports:
       - "8080:8080"
 

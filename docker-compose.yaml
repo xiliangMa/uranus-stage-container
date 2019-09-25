@@ -9,6 +9,7 @@ services:
         HOST_IP: ${HOST_IP}
         JAVASRV_IP: ${JAVASRV_IP}
         IMGSRV_PORT: 3330
+    image: "xiliangma/uranus-ui-container:v1"
     ports:
         - "80:80"
         - "443:443"
@@ -25,6 +26,7 @@ services:
     build:
       context: ./
       dockerfile: ./proxy_dev_server/Dockerfile.proxy-rancher
+    image: "xiliangma/urnaus-rancher-agent-container:v1"
     ports:
         - "8088:8088"
 
@@ -35,6 +37,7 @@ services:
       args:
         TARGET_IP: 15.164.158.198
         AUTH: token-nkv6b:hmxlmp6c98hklcp5qmmx9js8f6d48kcjptl4k4gc2wwrnddmsjtfwc
+    image: "xiliangma/urnaus-img-server-container:v1"   
     ports:
         - "3300:3300"
 
