@@ -20,7 +20,7 @@ cat /etc/nginx/conf.d/java-api.proxy.conf | grep proxy_pass
 #    fi
 #	cp -r /opt/dist /build_dir/uranus-stage/
 # else
-    cp -r /build_dir/uranus-stage/dist/* /opt/dist
+    # cp -r /build_dir/uranus-stage/dist/* /opt/dist
 # fi
 
 nginx -g "daemon off;"

@@ -20,13 +20,13 @@ services:
       - proxy:rancher-proxy
     volumes:
       - ./build_dir:/build_dir/
-      - /cloudata/log/nginx:/var/logs
+      - /opt/uranus/log/nginx:/var/logs
 
   proxy:
     build:
       context: ./
       dockerfile: ./proxy_dev_server/Dockerfile.proxy-rancher
-    image: "xiliangma/urnaus-rancher-agent-container:v1"
+    image: "xiliangma/urnaus-rancher-proxy-container:v1"
     ports:
         - "8088:8088"
 
