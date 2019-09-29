@@ -1,0 +1,11 @@
+version: '3'
+services:
+  ftp:
+    build:
+      context: ./ftp-server
+      dockerfile: ./Dockerfile.ftp-server
+    image: "xiliangma/uranus-ftp-server:v1"
+    volumes:
+      - /opt/uranus/ftp:/cloudata
+    ports:
+      - "8000:8000"

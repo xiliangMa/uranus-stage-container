@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: uranus-stage-ui
+  labels:
+    app: uranus-stage-ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: uranus-stage-ui
+  template:
+    metadata:
+      labels:
+        app: uranus-stage-ui
+    spec:
+      containers:
+      - env:
+        - name: BUILD_DIST
+          value: "Y"
+        - name: HOST_IP
+          value: "testnet.uranus.io"
+        - name: JAVASRV_IP
+          value: "52.79.130.124"
+        - name: IMGSRV_PORT
+          value: "3330"
+        name: uranus-stage-ui-container
+        image: xiliangma/uranus-ui-container:v1
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: dev
+          containerPort: 80
+          hostPort: 30004
+        volumeMounts:
+        - mountPath: /opt/uranus/
+          name: restapi-data
+      volumes:
+        - name: restapi-data
+          emptyDir: {}

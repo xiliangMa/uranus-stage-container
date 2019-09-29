@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: uranus-stage-img-server
+  labels:
+    app: uranus-stage-img-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: uranus-stage-img-server
+  template:
+    metadata:
+      labels:
+        app: uranus-stage-img-server
+    spec:
+      containers:
+      - env:
+        - name: TARGET_IP
+          value: "15.164.158.198"
+        - name: AUTH
+          value: "token-nkv6b:hmxlmp6c98hklcp5qmmx9js8f6d48kcjptl4k4gc2wwrnddmsjtfwc"
+        name: uranus-stage-img-server-container
+        image: xiliangma/urnaus-img-server-container:v1
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: dev
+          containerPort: 3330
+          hostPort: 3330
+        # resources:
+        #   limits:
+        #     cpu: 1000m
+        #     memory: 1024Mi
+        #   requests:
+        #     cpu: 300m
+        #     memory: 256Mi

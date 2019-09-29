@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+ 
+kind: Deployment
+ 
+metadata:
+  name: sample-node-server
+ 
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: kube-node-server
+    spec:
+      containers:
+        - name: node-server
+          image: soaop/nodesrv:v1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8081
+              hostPort: 30004
+

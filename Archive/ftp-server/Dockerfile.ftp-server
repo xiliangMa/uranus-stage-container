@@ -1,0 +1,23 @@
+FROM python:2.7
+
+RUN pip install pyftpdlib 2>/dev/null
+COPY .ftp.py /
+
+WORKDIR /cloudata
+
+# ENV TARGET_IP=${TARGET_IP}
+# ENV AUTH=${AUTH}
+#
+# RUN env
+#
+# RUN sed -i "s/----->TARGET_IP<-----/$TARGET_IP/" /image-server/server.js
+# RUN sed -i "s/----->AUTH<-----/$AUTH/" /image-server/server.js
+
+# RUN cat /image-server/server.js
+
+
+ENTRYPOINT cp /.ftp.py /cloudata && python /cloudata/.ftp.py
+## ENTRYPOINT bash
+
+
+

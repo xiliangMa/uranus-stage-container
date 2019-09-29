@@ -1,5 +1,7 @@
 version: '3'
+
 services:
+
   ui:
     build:
       context: ./
@@ -26,18 +28,38 @@ services:
     build:
       context: ./
       dockerfile: ./proxy_dev_server/Dockerfile.proxy-rancher
-    image: "xiliangma/urnaus-rancher-proxy-container:v1"
+    image: "xiliangma/uranus-rancher-proxy-container:v1"
     ports:
         - "8088:8088"
 
-  img:
+  imgsrv:
     build:
-      context: ./image-container
+      context: uranus-image-server
       dockerfile: ./Dockerfile.image-server
       args:
         TARGET_IP: 15.164.158.198
         AUTH: token-nkv6b:hmxlmp6c98hklcp5qmmx9js8f6d48kcjptl4k4gc2wwrnddmsjtfwc
-    image: "xiliangma/urnaus-img-server-container:v1"   
+    image: "xiliangma/uranus-img-server-container:v1"
     ports:
         - "3300:3300"
+
+  ftpsrv:
+    build:
+      context: uranus-ftp-server
+      dockerfile: ./Dockerfile.vsftpd
+      args:
+        USER_ID: 1000
+        GROUP_ID: 1000
+    restart: always
+    image: "xiliangma/uranus-ftp-server:v1"
+    ports:
+      - 0.0.0.0:20:20
+      - 0.0.0.0:8000:21
+      - 21100-21110:21100-21110
+    volumes:
+      - /opt/uranus/ftphome:/home/vsftpd
+      - /opt/uranus/ftplogs:/var/log/
+
+
+
 
