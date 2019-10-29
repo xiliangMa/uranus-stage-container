@@ -4,11 +4,13 @@
 if [ "$FTP_USER" = "**String**" ]; then
     export FTP_USER='admin'
 fi
-
+export FTP_USER='admin'
 # If no env var has been specified, generate a random password for FTP_USER:
 if [ "$FTP_PASS" = "**Random**" ]; then
-    export FTP_PASS=`cat /dev/urandom | tr -dc A-Z-a-z-0-9 | head -c${1:-16}`
+    #export FTP_PASS=`cat /dev/urandom | tr -dc A-Z-a-z-0-9 | head -c${1:-16}`
+    export FTP_PASS='Ct#123@Uranus'
 fi
+export FTP_PASS='admin'
 
 # Do not log to STDOUT by default:
 if [ "$LOG_STDOUT" = "**Boolean**" ]; then
@@ -19,7 +21,8 @@ fi
 
 
 # Create home dir and update vsftpd user db:
-mkdir -p "/home/vsftpd/${FTP_USER}"
+#mkdir -p "/home/vsftpd/${FTP_USER}"
+mkdir -p "/home/vsftpd/"
 chmod -R 755 /home/vsftpd/
 chown -R ftp:ftp /home/vsftpd/
 

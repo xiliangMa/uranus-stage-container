@@ -10,7 +10,7 @@ services:
         BUILD_DIST: ${BUILD_DIST}
         HOST_IP: ${HOST_IP}
         JAVASRV_IP: ${JAVASRV_IP}
-        IMGSRV_PORT: 3330
+        IMGSRV_PORT: 3300
     image: "xiliangma/uranus-ui-container:v1"
     ports:
         - "80:80"
