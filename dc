@@ -4,11 +4,12 @@ export BUILD_DIST=Y    #$BUILD_DIST
 
 export JAVASRV_IP=54.180.158.219
 
-export HOST_IP=$(curl ip.sb -s)
+#export HOST_IP=$(curl ip.sb -s)
+export HOST_IP=testnet.uranus.io
 
 
 docker-compose $*
 
-
+chown -R ftp:ftp /opt/uranus/ftphome/anon
 
 
