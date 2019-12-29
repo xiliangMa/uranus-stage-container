@@ -3,18 +3,20 @@ FROM node:8.12 as nodecompile
 COPY uranus-stage-ui/uranus-stage /build_dir/uranus-stage
 COPY uranus-stage-ui/build-dist-container.sh /build_dir/uranus-stage/
 
+RUN npm config set sass_binary_site https://npm.taobao.org/mirrors/node-sass/
 RUN chmod u+x /build_dir/uranus-stage/build-dist-container.sh
 ARG BUILD_DIST
 ENV BUILD_DIST_PARA=${BUILD_DIST}
 RUN /build_dir/uranus-stage/build-dist-container.sh
 
+#FROM photon:3.0
+FROM alpine:3.11
 
-FROM photon:2.0
-
-RUN tdnf install -y nginx  \
+RUN apk add nginx
+#RUN tdnf install -y nginx  \
     #&& ln -sf /dev/stdout /var/log/nginx/access.log \
     #&& ln -sf /dev/stderr /var/log/nginx/error.log \
-    && tdnf clean all
+    #&& tdnf clean all
 
 COPY nginx-ui.conf/photon-nginx /etc/nginx/nginx.conf
 RUN  mkdir -p /etc/nginx/conf.d
@@ -47,6 +49,7 @@ ENV IMGSRV_PORT_ENT=${IMGSRV_PORT}
 
 COPY uranus-stage-ui/nginx-ui-dist.entrypoint.sh /opt/nginx-ui-dist.entrypoint.sh
 RUN  chmod +x /opt/nginx-ui-dist.entrypoint.sh
-ENTRYPOINT "/opt/nginx-ui-dist.entrypoint.sh"
+CMD ["sh", "/opt/nginx-ui-dist.entrypoint.sh"]
+#ENTRYPOINT "sh /opt/nginx-ui-dist.entrypoint.sh"
 
 
