@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 ### env settings
-export BUILD_DIST=Y    #$BUILD_DIST
+export BUILD_DIST=Y
 export JAVASRV_IP=47.105.151.140
 export HOST_IP=192.168.1.11
 export IMGSRV_PORT=3300
