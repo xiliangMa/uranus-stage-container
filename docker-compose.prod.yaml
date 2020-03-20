@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+
+  ui:
+    image: "xiliangma/uranus-ui-container:v1"
+    ports:
+        - "80:80"
+        - "443:443"
+        - "4000:4000"
+    depends_on:
+      - proxy
+    links:
+      - proxy:rancher-proxy
+    volumes:
+      - ./config/photon-nginx:/etc/nginx/nginx.conf
+      - ./config/proxy-java-api-server /etc/nginx/conf.d/java-api.proxy.conf
+      - ./config/proxy-ui-rancher-server /etc/nginx/conf.d/ui-rancher.proxy.conf
+      - ./config/proxy-rancher-img-server /etc/nginx/conf.d/img-server.proxy.conf
+      - ./config/serverConfig.js /opt/dist/static/serverConfig.js
+      - ./build_dir:/build_dir/
+      - /opt/uranus/log/nginx:/var/logs
+    restart: unless-stopped
+
+  proxy:
+    image: "xiliangma/uranus-rancher-proxy-container:v1"
+    ports:
+        - "8088:8088"
+    restart: unless-stopped
+
+  imgsrv:
+    image: "xiliangma/uranus-img-server-container:v1"
+    ports:
+        - "3300:3300"
+    volumes:
+        - ./config/server.js:/image-server/server.js
+    restart: unless-stopped
+

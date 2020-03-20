@@ -14,8 +14,6 @@ RUN env
 RUN sed -i "s/----->TARGET_IP<-----/$TARGET_IP/" /image-server/server.js
 RUN sed -i "s/----->AUTH<-----/$AUTH/" /image-server/server.js
 
-RUN cat /image-server/server.js
-
 
 ### COPY ssl/1_testnet.uranus.io_bundle.crt  /nodejs-proxy/ssl
 ### COPY ssl/2_testnet.uranus.io.key  /nodejs-proxy/ssl

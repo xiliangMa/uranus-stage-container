@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+### env settings
+export BUILD_DIST=Y    #$BUILD_DIST
+export JAVASRV_IP=47.105.151.140
+export HOST_IP=192.168.1.11
+export IMGSRV_PORT=3300
+export TARGET_IP=15.164.158.198
+
+## 此项内容建议放在脚本外执行
+export AUTH=token-nkv6b:hmxlmp6c98hklcp5qmmx9js8f6d48kcjptl4k4gc2wwrnddmsjtfwc
+
+
+### gen config file from templates
+cp -f ./uranus-stage-ui/uranus-stage/static/serverConfig-container.js ./config/serverConfig.js
+cp -f ./nginx-ui.conf/* ./config/
+cp -f ./uranus-image-server/rancher-img-server/server.js ./config/server.js
+
+sed -i "s/----->HOST_IP<-----/${HOST_IP}/" ./config/serverConfig.js
+sed -i "s/----->IMGSRV_PORT<-----/${IMGSRV_PORT}/" ./config/serverConfig.js
+sed -i "s/----->HOST_IP<-----/${HOST_IP}/" ./config/proxy-ui-rancher-server
+sed -i "s/----->HOST_IP<-----/${HOST_IP}/" ./config/proxy-rancher-img-server
+sed -i "s/----->JAVASRV_IP<-----/${JAVASRV_IP}/" ./config/proxy-rancher-img-server
+sed -i "s/----->IMGSRV_PORT<-----/${IMGSRV_PORT}/" ./config/proxy-rancher-img-server
+sed -i "s/----->JAVASRV_IP<-----/${JAVASRV_IP}/" ./config/proxy-java-api-server
+
+sed -i "s/----->TARGET_IP<-----/${TARGET_IP}/" ./config/server.js
+sed -i "s/----->AUTH<-----/$AUTH/" ./config/server.js
+
+docker-compose -f docker-compose.prod.yaml $*
+
+
+
