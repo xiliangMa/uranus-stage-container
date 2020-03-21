@@ -1,4 +1,4 @@
-FROM node:8.12 as node812
+FROM node:alpine
 
 RUN mkdir /image-server
 COPY /rancher-img-server /image-server
