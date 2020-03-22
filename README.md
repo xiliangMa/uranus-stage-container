@@ -16,7 +16,14 @@ ursnus-stage in docker
 
 
 ## release version
-修改 dc-release 中的配置信息
+### 安装
+1 恢复镜像
+```
+docker load -i uranus-stage-ui-images.tgz
+```
+
+### 环境配置
+1 修改 dc-release 中的配置信息
 
 ```
 export JAVASRV_IP=47.105.151.140 ## JavaAPI服务IP
@@ -28,18 +35,25 @@ rancher API连接授权码，这项最好是在此脚本外执行或者加入启
 ```
 export AUTH=xxxxx
 ```
+2 修改rancher节点配置，修改proxy-host-map.js，最后一行不能加,
+{'47.105.148.216': '/rancher1'},
+{'15.164.158.198': '/rancher2'}
 
-1 注意在切换到发布版启动之前,需要先执行关闭开发模式容器
+
+### 启动服务
+1 关闭运行中的容器
 ```
-./dc down
+./dc-release down
 ```
 
-2 启动发布版本
+2 启动所有容器
 ```
 ./dc-release up -d
 ```
 
-3 关闭发布版本
+
+### 关闭服务
+1 关闭所有容器
 ```
 ./dc-release down
 ```

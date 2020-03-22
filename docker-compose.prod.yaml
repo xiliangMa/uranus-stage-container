@@ -14,10 +14,10 @@ services:
       - proxy:rancher-proxy
     volumes:
       - ./config/photon-nginx:/etc/nginx/nginx.conf
-      - ./config/proxy-java-api-server /etc/nginx/conf.d/java-api.proxy.conf
-      - ./config/proxy-ui-rancher-server /etc/nginx/conf.d/ui-rancher.proxy.conf
-      - ./config/proxy-rancher-img-server /etc/nginx/conf.d/img-server.proxy.conf
-      - ./config/serverConfig.js /opt/dist/static/serverConfig.js
+      - ./config/proxy-java-api-server:/etc/nginx/conf.d/java-api.proxy.conf
+      - ./config/proxy-ui-rancher-server:/etc/nginx/conf.d/ui-rancher.proxy.conf
+      - ./config/proxy-rancher-img-server:/etc/nginx/conf.d/img-server.proxy.conf
+      - ./config/serverConfig.js:/opt/dist/static/serverConfig.js
       - ./build_dir:/build_dir/
       - /opt/uranus/log/nginx:/var/logs
     restart: unless-stopped

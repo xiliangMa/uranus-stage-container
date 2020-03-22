@@ -3,7 +3,7 @@
 ### env settings
 export BUILD_DIST=Y
 export JAVASRV_IP=47.105.151.140
-export HOST_IP=192.168.1.11
+export HOST_IP=192.168.1.13
 export IMGSRV_PORT=3300
 export TARGET_IP=15.164.158.198
 
@@ -12,9 +12,15 @@ export AUTH=token-nkv6b:hmxlmp6c98hklcp5qmmx9js8f6d48kcjptl4k4gc2wwrnddmsjtfwc
 
 
 ### gen config file from templates
-cp -f ./uranus-stage-ui/uranus-stage/static/serverConfig-container.js ./config/serverConfig.js
+if [ ! -d config ]
+then
+  mkdir config
+fi
+
+cp -f ./settings/serverConfig-container.js ./config/serverConfig.js
+cp -f ./settings/server.js ./config/server.js
 cp -f ./nginx-ui.conf/* ./config/
-cp -f ./uranus-image-server/rancher-img-server/server.js ./config/server.js
+
 
 sed -i "s/----->HOST_IP<-----/${HOST_IP}/" ./config/serverConfig.js
 sed -i "s/----->IMGSRV_PORT<-----/${IMGSRV_PORT}/" ./config/serverConfig.js

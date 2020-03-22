@@ -5,10 +5,10 @@ const port = 3300;
 
 // proxy middleware options
 var options = {
-    target: 'https://15.164.158.198',
+    target: 'https://----->TARGET_IP<-----',
     changeOrigin: true,
     secure: false,
-    auth: 'token-nkv6b:hmxlmp6c98hklcp5qmmx9js8f6d48kcjptl4k4gc2wwrnddmsjtfwc',
+    auth: '----->AUTH<-----',
     pathRewrite: {
         '^/rancher-img': '/v3/templates'
     }
