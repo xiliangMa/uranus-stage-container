@@ -2,20 +2,12 @@
 
 
 
-sed -i "s/----->HOST_IP<-----/${HOST_IP_ENT}/" /opt/dist/static/serverConfig.js
-sed -i "s/----->IMGSRV_PORT<-----/${IMGSRV_PORT_ENT}/" /opt/dist/static/serverConfig.js
-sed -i "s/----->HOST_IP<-----/${HOST_IP_ENT}/" /etc/nginx/conf.d/ui-rancher.proxy.conf
-sed -i "s/----->HOST_IP<-----/${HOST_IP_ENT}/" /etc/nginx/conf.d/img-server.proxy.conf
-sed -i "s/----->JAVASRV_IP<-----/${JAVASRV_IP}/" /etc/nginx/conf.d/img-server.proxy.conf
-sed -i "s/----->IMGSRV_PORT<-----/${IMGSRV_PORT_ENT}/" /etc/nginx/conf.d/img-server.proxy.conf
-sed -i "s/----->JAVASRV_IP<-----/${JAVASRV_IP_ENT}/" /etc/nginx/conf.d/java-api.proxy.conf
-
-
 cat /opt/dist/static/serverConfig.js | grep -v "^\s.//"
 cat /etc/nginx/conf.d/ui-rancher.proxy.conf | grep server_name | grep -v rewrite
 cat /etc/nginx/conf.d/java-api.proxy.conf | grep proxy_pass
 
-# if [ $BUILD_DIST_PARA = "Y" ];then
+# 缓存方式复制dist，此功能仅在开发中用到
+# if [ $BUILD_DIST = "Y" ];then
 #    if [ ! -d "/build_dir/uranus-stage" ];then
 #	    mkdir /build_dir/uranus-stage
 #    fi
